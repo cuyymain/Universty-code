@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Code - Apa Itu HTML?</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0b0f14;
+            color: #eee;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* navbar sederhana tanpa menu */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            margin: 1rem 0 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 0 8px gold;
+            white-space: nowrap;
+        }
+        .logo span { font-size: 2rem; }
+
+        /* breadcrumb */
+        .breadcrumb {
+            margin-bottom: 2rem;
+            color: #aaa;
+            word-break: break-word;
+        }
+        .breadcrumb a {
+            color: gold;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* konten utama */
+        .content-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 60px;
+            padding: 2.5rem;
+            backdrop-filter: blur(5px);
+            margin-bottom: 2rem;
+        }
+        h1 {
+            font-size: 2.8rem;
+            color: #ffd966;
+            margin-bottom: 1.5rem;
+            border-left: 8px solid gold;
+            padding-left: 1.5rem;
+            font-weight: 800;
+            word-break: break-word;
+        }
+        h2 {
+            font-size: 2rem;
+            color: gold;
+            margin: 2rem 0 1rem;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255,215,0,0.3);
+            padding-bottom: 0.5rem;
+        }
+        p {
+            margin-bottom: 1.2rem;
+            color: #ddd;
+            font-size: 1.1rem;
+        }
+        ul {
+            margin: 1rem 0 1.5rem 2rem;
+            color: #ddd;
+        }
+        li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .code-block {
+            background: #1a1a1a;
+            border-radius: 30px;
+            padding: 1.2rem 1.5rem;
+            margin: 1.2rem 0;
+            border: 1px solid rgba(255,215,0,0.2);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .code-block pre {
+            color: #ffd966;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .inline-code {
+            background: #2a2a2a;
+            color: #ffd966;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .highlight {
+            color: gold;
+            font-weight: 600;
+            background: rgba(255,215,0,0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 30px;
+        }
+
+        /* editor interaktif */
+        .editor-section {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 60px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+        .editor-title {
+            font-size: 2rem;
+            color: gold;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .editor-pane, .preview-pane {
+            background: #1a1a1a;
+            border-radius: 40px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        .editor-pane h3, .preview-pane h3 {
+            color: gold;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        textarea {
+            width: 100%;
+            height: 250px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 30px;
+            padding: 1.2rem;
+            color: #ffd966;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            resize: vertical;
+            outline: none;
+        }
+        textarea:focus {
+            border-color: gold;
+            box-shadow: 0 0 10px rgba(255,215,0,0.3);
+        }
+        .preview-frame {
+            width: 100%;
+            height: 250px;
+            background: white;
+            border-radius: 30px;
+            border: 1px solid #333;
+        }
+        .run-button {
+            background: transparent;
+            border: 2px solid gold;
+            color: gold;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 1.5rem;
+            display: inline-block;
+        }
+        .run-button:hover {
+            background: gold;
+            color: black;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid gold;
+            color: gold;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .back-button:hover {
+            background: gold;
+            color: black;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #aaa;
+            border-top: 1px solid rgba(255,215,0,0.2);
+            margin-top: 3rem;
+        }
+
+        /* responsif */
+        @media (max-width: 700px) {
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+            .content-card { padding: 1.5rem; }
+            h1 { font-size: 2.2rem; }
+        }
+        @media (max-width: 600px) {
+            .navbar { padding: 0.6rem 1.2rem; }
+            .logo { font-size: 1.5rem; }
+            .logo span { font-size: 1.7rem; }
+            h1 { font-size: 2rem; }
+            .content-card { padding: 1.5rem; }
+            .editor-section { padding: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 0; }
+            body { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- navbar tanpa menu -->
+    <nav class="navbar">
+        <div class="logo">
+            <span>⚡</span> University Code
+        </div>
+    </nav>
+
+    <!-- breadcrumb -->
+    <div class="breadcrumb">
+        <a href="materi-html.html">📄 Materi HTML</a> / <span>Apa Itu HTML?</span>
+    </div>
+
+    <!-- konten utama -->
+    <div class="content-card">
+        <h1>Apa Itu HTML?</h1>
+
+        <p>Lu pernah buka website kan? Nah, di balik semua tampilan keren itu, ada kerangka dasar yang namanya HTML. Singkatannya <strong>HyperText Markup Language</strong>. Ribet? Iya, tapi konsepnya gampang.</p>
+
+        <p>HTML itu bahasa markup, <strong>BUKAN bahasa pemrograman</strong>. Bedanya apa? Bahasa pemrograman kayak JavaScript atau Python tuh ngurusin logika, hitung-hitungan, dan bikin sesuatu terjadi. Sementara HTML cuma nandain konten doang.</p>
+
+        <p>Coba bayangin lu lagi ngetik di Word. Saat lu blok tulisan "Ini Judul" terus lu ganti jadi "Heading 1", itu gunanya sama kayak HTML. Lu lagi ngasih tau dokumen bahwa tulisan itu penting dan harus jadi judul. Bedanya, di HTML kita pake kode-kode kecil.</p>
+
+        <p>Caranya gampang, kita pake yang namanya <strong>tag</strong>. Bentuknya gini <span class="inline-code">&lt;nama-tag&gt;</span> buat pembuka, dan <span class="inline-code">&lt;/nama-tag&gt;</span> buat penutup. Di antara tag itu baru isi kontennya.</p>
+
+        <p>Contoh paling basic (coba jalankan di editor bawah):</p>
+
+        <!-- Contoh kode dalam blok terpisah yang rapi -->
+        <div class="code-block">
+            <pre>&lt;h1&gt;Ini Judul Utama&lt;/h1&gt;</pre>
+        </div>
+        <div class="code-block">
+            <pre>&lt;p&gt;Ini paragraf biasa.&lt;/p&gt;</pre>
+        </div>
+        <div class="code-block">
+            <pre>&lt;a href="https://google.com"&gt;Klik ke Google&lt;/a&gt;</pre>
+        </div>
+
+        <p><span class="inline-code">&lt;a&gt;</span> di atas adalah contoh tautan. Atribut <span class="inline-code">href</span> menentukan alamat tujuannya.</p>
+
+        <h2>Terus HTML tuh kerangka doang?</h2>
+        <p>Iya, persis. HTML cuma ngurus struktur aja. Biar gampang, inget analogi orang:</p>
+        <ul>
+            <li><strong>HTML</strong> = tulang kerangka. Yang nentuin mana kepala, mana badan, mana tangan.</li>
+            <li><strong>CSS</strong> = kulit dan baju. Yang ngatur warna, ukuran, tampilan biar cakep.</li>
+            <li><strong>JavaScript</strong> = otot. Yang bikin bisa gerak dan interaktif, kayak pas tombol diklik muncul pop-up.</li>
+        </ul>
+
+        <h2>Struktur minimal HTML kayak gimana?</h2>
+        <p>Setiap halaman HTML mesti punya kerangka wajib gini:</p>
+        <div class="code-block">
+            <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Judul Website&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Halo Dunia!&lt;/h1&gt;
+    &lt;p&gt;Ini halaman pertama gue.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+            </pre>
+        </div>
+
+        <p>Nah, gampang kan maksudnya:</p>
+        <ul>
+            <li><span class="inline-code">&lt;!DOCTYPE html&gt;</span> cuma ngasih tau browser bahwa ini pake HTML versi terbaru (HTML5).</li>
+            <li><span class="inline-code">&lt;html&gt;</span> itu bungkus besar yang isi semua konten.</li>
+            <li><span class="inline-code">&lt;head&gt;</span> itu bagian kepala. Isinya data-data penting yang nggak keliatan langsung, kayak judul halaman (<span class="inline-code">&lt;title&gt;</span>) yang muncul di tab browser.</li>
+            <li><span class="inline-code">&lt;body&gt;</span> ini baru bagian inti. Semua yang mau lu liat di halaman web, dari teks, gambar, video, semua harus ditaruh di sini.</li>
+        </ul>
+
+        <h2>Kesimpulan</h2>
+        <p>HTML itu fondasi dasar dari semua website. Dia yang bikin tulisan bisa jadi judul, jadi paragraf, jadi link. Tanpa HTML, browser cuma liat teks acak-acakan tanpa struktur. Mau website sekelas Google, YouTube, atau cuma blog pribadi, semuanya pake HTML sebagai tulang punggungnya.</p>
+        <p>Udah, itu aja intinya. Nggak serumit yang dibayangin, cuma perlu hafal dan rajin latihan aja.</p>
+
+        <a href="html.html" class="back-button">← Kembali ke Materi HTML</a>
+    </div>
+
+    <!-- EDITOR INTERAKTIF: Contoh Kode dan Hasil -->
+    <div class="editor-section">
+        <div class="editor-title">
+            <span>📝 Coba Langsung</span>
+        </div>
+        <div class="editor-container">
+            <div class="editor-pane">
+                <h3>✏️ Tulis kode HTML kamu</h3>
+                <textarea id="htmlCode" placeholder="&lt;h1&gt;Hello World&lt;/h1&gt;
+&lt;p&gt;Ini contoh paragraf.&lt;/p&gt;"></textarea>
+            </div>
+            <div class="preview-pane">
+                <h3>🔍 Hasilnya</h3>
+                <iframe id="preview" class="preview-frame" srcdoc="<html><head><style>body{font-family:sans-serif; padding:1rem;}</style></head><body><h1>Hello World</h1><p>Ini contoh paragraf.</p></body></html>"></iframe>
+            </div>
+        </div>
+        <button class="run-button" id="runBtn">▶ Jalankan Kode</button>
+        <p style="color:#aaa; margin-top:1rem;">💡 Ubah kode di sebelah kiri, lalu klik tombol untuk melihat hasilnya.</p>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <p>⚡ 2026 University Code · Halaman detail "Apa Itu HTML?"</p>
+    </footer>
+</div>
+
+<script>
+    const runBtn = document.getElementById('runBtn');
+    const htmlCode = document.getElementById('htmlCode');
+    const preview = document.getElementById('preview');
+
+    function updatePreview() {
+        const code = htmlCode.value;
+        const srcdoc = `
+            <html>
+                <head><style>body { font-family: sans-serif; padding: 1rem; background: #f5f5f5; color: #111; }</style></head>
+                <body>${code}</body>
+            </html>
+        `;
+        preview.srcdoc = srcdoc;
+    }
+
+    runBtn.addEventListener('click', updatePreview);
+    htmlCode.value = '<h1>Hello World</h1>\n<p>Ini contoh paragraf.</p>';
+    updatePreview();
+</script>
+</body>
+</html>

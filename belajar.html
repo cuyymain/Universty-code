@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Code</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0b0f14;
+            color: #eee;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* navbar tanpa menu */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* logo di tengah, bisa diganti space-between jika ingin di kiri */
+            background: #000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            margin: 1rem 0 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 0 8px gold;
+            white-space: nowrap;
+        }
+        .logo span { font-size: 2rem; }
+
+        /* grid vertikal */
+        .grid-vertikal {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .grid-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 50px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .grid-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.2);
+            border-color: gold;
+        }
+        .grid-card a {
+            display: block;
+            padding: 2.5rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        .grid-card h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #ffd966;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+        .grid-card p {
+            font-size: 1.2rem;
+            color: #ddd;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* footer */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        footer a {
+            color: #ffd966;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* responsif */
+        @media (max-width: 600px) {
+            .logo { font-size: 1.5rem; }
+            .logo span { font-size: 1.7rem; }
+            .grid-card a { padding: 1.8rem; }
+            .grid-card h2 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- navbar tanpa menu -->
+    <nav class="navbar">
+        <div class="logo">
+            <span>⚡</span> University Code
+        </div>
+    </nav>
+
+    <!-- grid vertikal dengan link -->
+    <div class="grid-vertikal">
+        <!-- HTML -->
+        <div class="grid-card">
+            <a href="html.html">
+                <h2>HTML</h2>
+                <p>HyperText Markup Language — struktur dasar halaman web. Pelajari tag, elemen, dan semantik.</p>
+            </a>
+        </div>
+        <!-- CSS -->
+        <div class="grid-card">
+            <a href="css.html">
+                <h2>CSS</h2>
+                <p>Cascading Style Sheets — desain dan tata letak. Warna, font, grid, flex, dan animasi.</p>
+            </a>
+        </div>
+        <!-- JavaScript -->
+        <div class="grid-card">
+            <a href="js.html">
+                <h2>JS</h2>
+                <p>JavaScript — bahasa pemrograman interaktif. Logic, DOM, event, dan membuat website dinamis.</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <p>⚡ 2025 University Code · Dibuat dengan <span style="color: #ffd966;">❤️</span> untuk para calon programmer</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="#">Tentang</a> · <a href="#">Kontak</a> · <a href="#">Privasi</a>
+        </p>
+    </footer>
+</div>
+</body>
+</html>

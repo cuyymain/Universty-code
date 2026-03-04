@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Code ⚡</title>
+    <style>
+        /* reset dan dasar */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0b0f14;
+            color: #eee;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* navbar sederhana */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            margin: 1rem 0 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* logo dengan efek listrik sederhana */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 0 8px gold;
+            white-space: nowrap;
+        }
+        .logo span { font-size: 2rem; } /* bolt */
+
+        /* toggle */
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #ffd966;
+            border-radius: 3px;
+            transition: 0.2s;
+            box-shadow: 0 0 5px gold;
+        }
+
+        /* dropdown menu */
+        .nav-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: #111;
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 40px;
+            padding: 1rem;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: 0.2s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            z-index: 200;
+        }
+        .nav-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .nav-links a {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255,215,0,0.2);
+            text-align: center;
+            transition: 0.2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255,215,0,0.15);
+            border-color: gold;
+            color: #ffd966;
+        }
+        .nav-links a.lainnya:after {
+            content: " ▾";
+        }
+
+        /* intro section */
+        .intro {
+            background: rgba(0,0,0,0.2);
+            border-radius: 50px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255,215,0,0.15);
+        }
+        .intro h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #ffd966;
+            font-weight: 700;
+            border-left: 6px solid gold;
+            padding-left: 1.2rem;
+        }
+        .intro h2 {
+            font-size: 1.6rem;
+            margin: 2rem 0 1rem;
+            color: #ffd966;
+        }
+        .intro p {
+            margin-bottom: 1.2rem;
+            color: #ddd;
+        }
+        .intro ul, .intro ol {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+        .intro li {
+            margin-bottom: 0.5rem;
+        }
+        .intro .highlight {
+            color: #ffd966;
+            font-weight: 600;
+        }
+        .intro blockquote {
+            background: rgba(255,215,0,0.05);
+            border-left: 6px solid gold;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+        .code-tag {
+            background: #222;
+            color: gold;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-family: monospace;
+        }
+        .cta {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2.5rem;
+            border: 2px solid gold;
+            border-radius: 60px;
+            color: gold;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .cta:hover {
+            background: gold;
+            color: black;
+        }
+        .footer-note {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin: 3rem 0 1rem;
+        }
+
+        /* responsif */
+        @media (max-width: 600px) {
+            .navbar { padding: 0.6rem 1.2rem; }
+            .logo { font-size: 1.5rem; }
+            .logo span { font-size: 1.7rem; }
+            .intro { padding: 1.5rem; }
+            .intro h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <span>⚡</span> University Code
+        </div>
+
+    </nav>
+
+    <!-- introduction -->
+    <section class="intro">
+        <h1>⚡ Halo, breku!</h1>
+        <p>Gw bakal kasih lu introduction tentang coding dengan bahasa yang santai tapi jelas. Check it out!</p>
+
+        <h2>Jadi, Apa Sih Coding Itu?</h2>
+        <p>Coding (atau programming) adalah proses ngasih instruksi ke komputer untuk melakukan sesuatu. Bayangin aja lu lagi ngasih resep masakan ke temen lu yang super kaku dan lugu—setiap langkah harus detail dan nggak ambigu. Nah, itu yang dilakukan programmer sehari-hari.</p>
+        <p>Komputer itu sebenernya "bodoh" dalam artian mereka cuma ngerti dua keadaan: listrik menyala (1) atau mati (0). Tapi karena kita males nulis kode pake 0 dan 1 (itu namanya bahasa mesin), kita pake bahasa pemrograman yang lebih manusiawi kayak Python, JavaScript, atau Java. Nanti kode itu bakal diterjemahin ke bahasa mesin biar komputer ngerti.</p>
+
+        <h2>Kenapa Harus Belajar Coding?</h2>
+        <ul>
+            <li><span class="highlight">Problem solving</span> — Coding ngelatih otak lu buat mecahin masalah secara logis dan terstruktur.</li>
+            <li><span class="highlight">Kreativitas</span> — Lu bisa bikin apa aja: website, game, aplikasi, bahkan AI.</li>
+            <li><span class="highlight">Karir menjanjikan</span> — Jujur aja, gaji di bidang tech lumayan menggiurkan.</li>
+            <li><span class="highlight">Otomatisasi</span> — Males ngelakuin tugas berulang? Suruh aja komputer yang ngerjain.</li>
+        </ul>
+
+        <h2>Bahasa Pemrograman Itu Apa Aja?</h2>
+        <ul>
+            <li><span class="highlight">Python</span> — Paling cocok buat pemula. Simpel, banyak dipake buat data science, AI, backend.</li>
+            <li><span class="highlight">JavaScript</span> — Bahasa wajib buat bikin website interaktif.</li>
+            <li><span class="highlight">Java</span> — Bahasa klasik buat aplikasi Android dan enterprise.</li>
+            <li><span class="highlight">C++</span> — Buat game, aplikasi berat, dan yang butuh performa tinggi.</li>
+        </ul>
+
+        <h2>Cara Kerja Coding Secara Sederhana</h2>
+        <p>Lu nulis kode di text editor (kayak VS Code), simpen dengan ekstensi tertentu (<span class="code-tag">.py</span> buat Python, <span class="code-tag">.js</span> buat JavaScript), terus jalanin pake interpreter atau compiler. Kalo ngga ada error, program lu bakal berjalan sesuai instruksi yang lu kasih.</p>
+        <p>Error itu wajar banget. Bahkan programmer senior tiap hari pasti ketemu error. Bedanya mereka udah jago nyari solusinya (biasanya baca pesan error, Google, atau tanya di forum kayak Stack Overflow).</p>
+
+        <h2>Mulai dari Mana?</h2>
+        <ol>
+            <li>Pilih satu bahasa, misalnya Python (paling gampil buat pemula)</li>
+            <li>Install tools yang diperlukan (Python interpreter + text editor)</li>
+            <li>Mulai dari yang paling dasar: print "Hello World!", variabel, tipe data, perulangan, percabangan</li>
+            <li>Konsisten — Lebih baik 30 menit setiap hari daripada 5 jam seminggu sekali</li>
+            <li>Bikin proyek kecil — Misalnya kalkulator sederhana atau to-do list</li>
+        </ol>
+
+        <blockquote>
+            Inget, jadi programmer itu bukan tentang hapal syntax, tapi tentang logika dan kemampuan problem solving. Syntax bisa dicari di Google, tapi cara mikirnya itu yang perlu dilatih.
+        </blockquote>
+
+        <p>Gimana? Tertarik buat mulai? Atau ada bagian yang masih bingung? Lu bisa tanya-tanya lagi kok!</p>
+
+        <a href="Belajar.html" class="cta" onclick="Belajar.html">Mulai Sekarang</a>
+    </section>
+
+    <div class="footer-note">⚡  @2026 universty code-untuk belajar pemrograman.</div>
+</div>
+
+<script>
+    (function() {
+        const toggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('navMenu');
+        const links = document.querySelectorAll('.nav-links a');
+
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.toggle('active');
+            const spans = toggle.querySelectorAll('span');
+            if (menu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                menu.classList.remove('active');
+                const spans = toggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // active state untuk link (simulasi)
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                links.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                menu.classList.remove('active');
+                const spans = toggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+                // untuk demo, biarkan link jalan (href="#") hanya scroll ke atas
+            });
+        });
+    })();
+</script>
+</body>
+</html>

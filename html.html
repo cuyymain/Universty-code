@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Code - Materi HTML</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0b0f14;
+            color: #eee;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            margin: 1rem 0 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 0 8px gold;
+            white-space: nowrap;
+        }
+        .logo span { font-size: 2rem; }
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #ffd966;
+            border-radius: 3px;
+            transition: 0.2s;
+            box-shadow: 0 0 5px gold;
+        }
+        .nav-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: #111;
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 40px;
+            padding: 1rem;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: 0.2s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            z-index: 200;
+        }
+        .nav-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .nav-links a {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255,215,0,0.2);
+            text-align: center;
+            transition: 0.2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255,215,0,0.15);
+            border-color: gold;
+            color: #ffd966;
+        }
+
+        /* judul halaman */
+        .page-title {
+            font-size: 2.8rem;
+            color: #ffd966;
+            margin-bottom: 2rem;
+            border-left: 8px solid gold;
+            padding-left: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* grid dengan link */
+        .grid-pilihan {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 4rem;
+        }
+        .grid-item-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .grid-item {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 40px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 180px;
+        }
+        .grid-item-link:hover .grid-item {
+            border-color: gold;
+            box-shadow: 0 10px 25px rgba(255,215,0,0.2);
+            transform: translateY(-5px);
+        }
+        .grid-item h3 {
+            color: #ffd966;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+        .grid-item p {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* footer */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        footer a {
+            color: #ffd966;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .navbar { padding: 0.6rem 1.2rem; }
+            .logo { font-size: 1.5rem; }
+            .logo span { font-size: 1.7rem; }
+            .page-title { font-size: 2rem; }
+            .grid-item { padding: 1.5rem; }
+            .grid-item h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <span>⚡</span> University Code
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <ul class="nav-links">
+                <li><a href="materi.html" class="active">HTML</a></li>
+                <li><a href="#">CSS</a></li>
+                <li><a href="#">JavaScript</a></li>
+                <li><a href="#">Lainnya</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- judul halaman -->
+    <h1 class="page-title">📄 Materi HTML Lengkap</h1>
+
+    <!-- GRID KHUSUS HTML -->
+    <div class="grid-pilihan">
+        <!-- Daftar topik HTML -->
+        <a href="materi.html" class="grid-item-link"><div class="grid-item"><h3>Apa Itu HTML?</h3><p>HyperText Markup Language, bahasa standar untuk membuat halaman web.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Sejarah HTML</h3><p>Diciptakan oleh Tim Berners-Lee pada 1991, berkembang hingga HTML5.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Versi HTML</h3><p>HTML 1.0, 2.0, 3.2, 4.01, XHTML, HTML5, Living Standard.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>DOCTYPE</h3><p>Deklarasi tipe dokumen, memberitahu browser versi HTML yang digunakan.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Struktur Dasar HTML</h3><p>&lt;!DOCTYPE&gt;, &lt;html&gt;, &lt;head&gt;, &lt;body&gt;.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Elemen HTML</h3><p>Segala sesuatu dari tag pembuka hingga tag penutup.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut HTML</h3><p>Informasi tambahan pada elemen, ditulis di tag pembuka.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;html&gt;</h3><p>Elemen root dari dokumen HTML.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;head&gt;</h3><p>Kontainer untuk metadata (data tentang data).</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;title&gt;</h3><p>Judul halaman yang tampil di tab browser.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;base&gt;</h3><p>Menentukan URL dasar untuk semua relative URL.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;link&gt;</h3><p>Menghubungkan ke sumber daya eksternal, seperti CSS.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;meta&gt;</h3><p>Mendefinisikan metadata seperti charset, viewport, deskripsi.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;style&gt;</h3><p>Menulis CSS internal di dalam dokumen HTML.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;script&gt;</h3><p>Menulis atau memuat JavaScript.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;body&gt;</h3><p>Elemen yang berisi semua konten yang tampil di halaman.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;section&gt;</h3><p>Bagian tematik dari konten, biasanya dengan judul.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;nav&gt;</h3><p>Navigasi, berisi link-link penting.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;article&gt;</h3><p>Konten independen yang bisa berdiri sendiri.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;aside&gt;</h3><p>Konten terkait namun tidak langsung, seperti sidebar.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;h1&gt; - &lt;h6&gt;</h3><p>Heading, judul bagian dengan tingkat kepentingan.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;header&gt;</h3><p>Kepala halaman atau bagian, biasanya berisi judul dan navigasi.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;footer&gt;</h3><p>Kaki halaman atau bagian, berisi informasi hak cipta, kontak.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;address&gt;</h3><p>Informasi kontak untuk penulis dokumen.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;main&gt;</h3><p>Konten utama yang unik, tidak boleh diulang.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;p&gt;</h3><p>Paragraf.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;hr&gt;</h3><p>Garis horizontal, menandakan perubahan tema.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;pre&gt;</h3><p>Teks preformatted, spasi dan baris dipertahankan.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;blockquote&gt;</h3><p>Kutipan panjang dari sumber lain.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;ol&gt;</h3><p>Daftar berurut (ordered list).</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;ul&gt;</h3><p>Daftar tidak berurut (unordered list).</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;li&gt;</h3><p>Item dalam daftar.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;dl&gt;</h3><p>Daftar definisi.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;dt&gt;</h3><p>Istilah dalam daftar definisi.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;dd&gt;</h3><p>Definisi dari istilah.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;figure&gt;</h3><p>Konten mandiri seperti ilustrasi, diagram, foto.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;figcaption&gt;</h3><p>Keterangan untuk &lt;figure&gt;.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;div&gt;</h3><p>Pembungkus generik tanpa arti semantik.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;a&gt;</h3><p>Hyperlink, menghubungkan ke halaman lain atau bagian.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;em&gt;</h3><p>Penekanan (emphasis), biasanya ditampilkan miring.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;strong&gt;</h3><p>Penting (strong importance), biasanya tebal.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;small&gt;</h3><p>Komentar kecil atau cetakan kecil.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;s&gt;</h3><p>Teks yang tidak lagi akurat, dicoret.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;cite&gt;</h3><p>Judul karya kreatif.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;q&gt;</h3><p>Kutipan pendek inline.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;dfn&gt;</h3><p>Istilah yang didefinisikan.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;abbr&gt;</h3><p>Singkatan atau akronim.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;ruby&gt;</h3><p>Anotasi ruby untuk bahasa Asia Timur.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;rt&gt;</h3><p>Teks anotasi ruby.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;rp&gt;</h3><p>Tanda kurung untuk fallback ruby.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;data&gt;</h3><p>Menghubungkan konten dengan nilai mesin.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;time&gt;</h3><p>Waktu atau tanggal.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;code&gt;</h3><p>Kode komputer.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;var&gt;</h3><p>Variabel.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;samp&gt;</h3><p>Output sampel dari program.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;kbd&gt;</h3><p>Input keyboard.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;sub&gt;</h3><p>Subscript.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;sup&gt;</h3><p>Superscript.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;i&gt;</h3><p>Teks dengan suara alternatif, seperti istilah teknis.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;b&gt;</h3><p>Perhatian tanpa penekanan, seperti kata kunci.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;u&gt;</h3><p>Teks yang tidak diartikulasikan, biasanya bergaris bawah.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;mark&gt;</h3><p>Teks yang ditandai atau disorot.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;bdi&gt;</h3><p>Mengisolasi teks untuk format arah berbeda.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;bdo&gt;</h3><p>Override arah teks.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;span&gt;</h3><p>Pembungkus inline generik.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;br&gt;</h3><p>Baris baru.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;wbr&gt;</h3><p>Kesempatan untuk garis baru.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;img&gt;</h3><p>Menyisipkan gambar.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;iframe&gt;</h3><p>Menyisipkan halaman lain dalam bingkai.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;embed&gt;</h3><p>Plugin eksternal.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;object&gt;</h3><p>Objek generik, seperti flash.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;param&gt;</h3><p>Parameter untuk &lt;object&gt;.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;video&gt;</h3><p>Pemutar video.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;audio&gt;</h3><p>Pemutar audio.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;source&gt;</h3><p>Sumber media untuk &lt;video&gt;/&lt;audio&gt;.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;track&gt;</h3><p>Teks track untuk media.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;canvas&gt;</h3><p>Grafis bitmap via JavaScript.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;svg&gt;</h3><p>Grafis vektor.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;math&gt;</h3><p>Formula matematika (MathML).</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;picture&gt;</h3><p>Kontainer untuk &lt;source&gt; dan &lt;img&gt;.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;table&gt;</h3><p>Membuat tabel.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;caption&gt;</h3><p>Judul tabel.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;colgroup&gt;</h3><p>Mengelompokkan kolom.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;col&gt;</h3><p>Properti kolom.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;thead&gt;</h3><p>Kepala tabel.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;tbody&gt;</h3><p>Badan tabel.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;tfoot&gt;</h3><p>Kaki tabel.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;tr&gt;</h3><p>Baris tabel.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;td&gt;</h3><p>Data sel.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;th&gt;</h3><p>Sel header.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;form&gt;</h3><p>Formulir interaktif.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;label&gt;</h3><p>Label untuk kontrol form.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;input&gt;</h3><p>Bermacam tipe input.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type text</h3><p>Input teks satu baris.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type password</h3><p>Input password.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type checkbox</h3><p>Kotak centang.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type radio</h3><p>Tombol radio.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type submit</h3><p>Tombol submit.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type reset</h3><p>Tombol reset.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type button</h3><p>Tombol biasa.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type color</h3><p>Pemilih warna.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type date</h3><p>Input tanggal.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type email</h3><p>Input email.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type file</h3><p>Upload file.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type hidden</h3><p>Input tersembunyi.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type number</h3><p>Input angka.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type range</h3><p>Slider.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type search</h3><p>Kotak pencarian.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type tel</h3><p>Input telepon.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type time</h3><p>Input waktu.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type url</h3><p>Input URL.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Input type week</h3><p>Input minggu.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;textarea&gt;</h3><p>Input teks multi-baris.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;select&gt;</h3><p>Dropdown.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;optgroup&gt;</h3><p>Kelompok opsi.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;option&gt;</h3><p>Opsi dropdown.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;button&gt;</h3><p>Tombol.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;datalist&gt;</h3><p>Daftar opsi autocomplete.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;fieldset&gt;</h3><p>Kelompok kontrol form.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;legend&gt;</h3><p>Keterangan &lt;fieldset&gt;.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;output&gt;</h3><p>Hasil kalkulasi.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;progress&gt;</h3><p>Bar progres.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;meter&gt;</h3><p>Nilai dalam rentang.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;details&gt;</h3><p>Kontrol untuk informasi tambahan.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;summary&gt;</h3><p>Ringkasan untuk &lt;details&gt;.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;dialog&gt;</h3><p>Kotak dialog.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;menu&gt;</h3><p>Menu interaktif.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;template&gt;</h3><p>Template HTML yang tidak dirender.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>&lt;slot&gt;</h3><p>Placeholder di shadow DOM.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut class</h3><p>Menentukan class untuk CSS atau JavaScript.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut id</h3><p>Pengenal unik.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut style</h3><p>CSS inline.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut title</h3><p>Informasi tambahan (tooltip).</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut lang</h3><p>Bahasa konten.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut dir</h3><p>Arah teks (ltr/rtl).</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut hidden</h3><p>Menyembunyikan elemen.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut tabindex</h3><p>Urutan fokus keyboard.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut accesskey</h3><p>Tombol pintas.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut draggable</h3><p>Apakah elemen bisa di-drag.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut contenteditable</h3><p>Konten bisa diedit.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut data-*</h3><p>Atribut data kustom.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut translate</h3><p>Apakah konten diterjemahkan.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut spellcheck</h3><p>Periksa ejaan.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>Atribut autofocus</h3><p>Fokus otomatis.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>loading='lazy'</h3><p>Lazy loading untuk gambar/iframe.</p></div></a>
+        <a href="#" class="grid-item-link"><div class="grid-item"><h3>popover</h3><p>Elemen popover native.</p></div></a>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <p>⚡ 2026 University Code · Materi HTML Lengkap</p>
+        <p><a href="#">Tentang</a> · <a href="#">Kontak</a></p>
+    </footer>
+</div>
+
+<script>
+    // Toggle menu
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('navMenu');
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('active');
+        const spans = toggle.querySelectorAll('span');
+        if (menu.classList.contains('active')) {
+            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+    document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+            menu.classList.remove('active');
+            const spans = toggle.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+</script>
+</body>
+</html>
