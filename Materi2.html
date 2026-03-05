@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Code - Sejarah HTML</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0b0f14;
+            color: #eee;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* navbar sederhana */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            margin: 1rem 0 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 0 8px gold;
+            white-space: nowrap;
+        }
+        .logo span { font-size: 2rem; }
+
+        /* breadcrumb */
+        .breadcrumb {
+            margin-bottom: 2rem;
+            color: #aaa;
+            word-break: break-word;
+        }
+        .breadcrumb a {
+            color: gold;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* konten utama */
+        .content-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 60px;
+            padding: 2.5rem;
+            backdrop-filter: blur(5px);
+            margin-bottom: 2rem;
+        }
+        h1 {
+            font-size: 2.8rem;
+            color: #ffd966;
+            margin-bottom: 1.5rem;
+            border-left: 8px solid gold;
+            padding-left: 1.5rem;
+            font-weight: 800;
+            word-break: break-word;
+        }
+        h2 {
+            font-size: 2rem;
+            color: gold;
+            margin: 2rem 0 1rem;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255,215,0,0.3);
+            padding-bottom: 0.5rem;
+        }
+        p {
+            margin-bottom: 1.2rem;
+            color: #ddd;
+            font-size: 1.1rem;
+        }
+        ul, ol {
+            margin: 1rem 0 1.5rem 2rem;
+            color: #ddd;
+        }
+        li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .code-block {
+            background: #1a1a1a;
+            border-radius: 30px;
+            padding: 1.2rem 1.5rem;
+            margin: 1.2rem 0;
+            border: 1px solid rgba(255,215,0,0.2);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .code-block pre {
+            color: #ffd966;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .inline-code {
+            background: #2a2a2a;
+            color: #ffd966;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .highlight {
+            color: gold;
+            font-weight: 600;
+            background: rgba(255,215,0,0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 30px;
+        }
+
+        /* editor interaktif */
+        .editor-section {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 60px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+        .editor-title {
+            font-size: 2rem;
+            color: gold;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .editor-pane, .preview-pane {
+            background: #1a1a1a;
+            border-radius: 40px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        .editor-pane h3, .preview-pane h3 {
+            color: gold;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        textarea {
+            width: 100%;
+            height: 250px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 30px;
+            padding: 1.2rem;
+            color: #ffd966;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            resize: vertical;
+            outline: none;
+        }
+        textarea:focus {
+            border-color: gold;
+            box-shadow: 0 0 10px rgba(255,215,0,0.3);
+        }
+        .preview-frame {
+            width: 100%;
+            height: 250px;
+            background: white;
+            border-radius: 30px;
+            border: 1px solid #333;
+        }
+        .run-button {
+            background: transparent;
+            border: 2px solid gold;
+            color: gold;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 1.5rem;
+            display: inline-block;
+        }
+        .run-button:hover {
+            background: gold;
+            color: black;
+        }
+
+        /* navigasi artikel */
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid gold;
+            color: gold;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .nav-button:hover {
+            background: gold;
+            color: black;
+        }
+        .nav-button.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            border-color: #666;
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #aaa;
+            border-top: 1px solid rgba(255,215,0,0.2);
+            margin-top: 3rem;
+        }
+
+        /* responsif */
+        @media (max-width: 700px) {
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+            .content-card { padding: 1.5rem; }
+            h1 { font-size: 2.2rem; }
+        }
+        @media (max-width: 600px) {
+            .navbar { padding: 0.6rem 1.2rem; }
+            .logo { font-size: 1.5rem; }
+            .logo span { font-size: 1.7rem; }
+            h1 { font-size: 2rem; }
+            .content-card { padding: 1.5rem; }
+            .editor-section { padding: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 0; }
+            body { padding: 0.5rem; }
+            .nav-buttons { flex-direction: column; }
+            .nav-button { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <span>⚡</span> University Code
+        </div>
+    </nav>
+
+    <!-- breadcrumb -->
+    <div class="breadcrumb">
+        <a href="materi-html.html">Materi HTML</a> / <span>Sejarah HTML</span>
+    </div>
+
+    <!-- konten utama sejarah -->
+    <div class="content-card">
+        <h1>Sejarah HTML: Dari 1991 sampai Sekarang</h1>
+
+        <p>HTML punya perjalanan panjang sebelum menjadi fondasi web modern seperti sekarang. Yuk kita lihat evolusinya.</p>
+
+        <ol>
+            <li>
+                <strong>Diciptakan Tahun 1991 oleh Tim Berners-Lee</strong><br>
+                Ilmuwan asal Inggris ini bikin HTML saat bekerja di CERN (Swiss). Tujuannya biar para peneliti bisa saling berbagi dokumen dengan mudah. Awalnya cuma ada 18 tag sederhana kayak <span class="inline-code">&lt;h1&gt;</span>, <span class="inline-code">&lt;p&gt;</span>, <span class="inline-code">&lt;a&gt;</span> (tautan).
+            </li>
+            <li>
+                <strong>HTML 2.0 (1995) - Standar Resmi Pertama</strong><br>
+                Ini versi pertama yang resmi distandarisasi. Mulai ada fitur formulir <span class="inline-code">&lt;form&gt;</span>.
+            </li>
+            <li>
+                <strong>HTML 3.2 (1997) - W3C Ambil Alih</strong><br>
+                W3C (konsorsium web) mulai mengurus HTML. Versi ini nambahin dukungan buat tabel, applet Java, dan teks yang bisa membungkus gambar.
+            </li>
+            <li>
+                <strong>HTML 4.01 (1999) - Puncak HTML Klasik</strong><br>
+                Versi ini ngenalin konsep penting: pisahin struktur (HTML) sama tampilan (CSS). Tag kayak <span class="inline-code">&lt;font&gt;</span> mulai ditinggalin. Versi ini paling lama dipake, sampai bertahun-tahun.
+            </li>
+            <li>
+                <strong>XHTML (2000-2006) - Jalan Buntu</strong><br>
+                W3C coba bikin HTML jadi lebih ketat ala XML. Harus tutup tag, pakai huruf kecil semua. Tapi terlalu ribet dan nggak praktis, akhirnya gagal dan ditolak developer.
+            </li>
+            <li>
+                <strong>Lahirnya HTML5 (2004-2014)</strong><br>
+                Karena frustrasi sama W3C yang lambat, kelompok dari Apple, Mozilla, Opera bikin WHATWG dan mulai ngembangin HTML versi baru. Tahun 2014, HTML5 resmi jadi standar. Ini lompatan gede banget.
+            </li>
+        </ol>
+
+        <h2>Revolusi HTML5</h2>
+        <p>Yang bikin HTML5 beda:</p>
+        <ul>
+            <li><strong>Elemen semantik:</strong> <span class="inline-code">&lt;header&gt;</span>, <span class="inline-code">&lt;footer&gt;</span>, <span class="inline-code">&lt;article&gt;</span> biar struktur lebih jelas.</li>
+            <li><strong>Multimedia native:</strong> <span class="inline-code">&lt;video&gt;</span> dan <span class="inline-code">&lt;audio&gt;</span> tanpa perlu Flash.</li>
+            <li><strong>Canvas:</strong> Bisa gambar dan bikin game pake JavaScript.</li>
+            <li><strong>Formulir pintar:</strong> Input type email, date, number, dll.</li>
+            <li><strong>API canggih:</strong> Geolocation, penyimpanan lokal, web workers.</li>
+        </ul>
+
+        <h2>Sekarang: Standar Hidup</h2>
+        <p>Mulai 2019, HTML nggak punya versi besar lagi. Dia jadi <em>"living standard"</em> yang terus diperbarui step by step sesuai kebutuhan.</p>
+
+        <h2>Intinya</h2>
+        <p>HTML lahir tahun 1991 buat kebutuhan akademis, berkembang pelan sampai HTML 4, sempet nyasar di XHTML, lalu direvolusi HTML5 jadi platform aplikasi web modern, dan sekarang terus berevolusi tanpa versi.</p>
+
+        <!-- navigasi halaman -->
+        <div class="nav-buttons">
+            <a href="apa-itu-html.html" class="nav-button">← Sebelumnya: Apa Itu HTML?</a>
+            <a href="materi-html.html" class="nav-button">📚 Kembali ke Materi HTML</a>
+            <a href="#" class="nav-button disabled">Selanjutnya: (Coming Soon) →</a>
+        </div>
+    </div>
+
+    <!-- EDITOR INTERAKTIF (opsional, bisa coba kode jadul) -->
+    <div class="editor-section">
+        <div class="editor-title">
+            <span>📜 Coba Kode Jadul</span>
+        </div>
+        <div class="editor-container">
+            <div class="editor-pane">
+                <h3>✏️ Tulis kode HTML versi lawas</h3>
+                <textarea id="htmlCode" placeholder="&lt;h1&gt;Halo, ini heading 1&lt;/h1&gt;
+&lt;p&gt;Ini paragraf pertama dalam sejarah.&lt;/p&gt;
+&lt;a href=&quot;#&quot;&gt;Tautan&lt;/a&gt;"></textarea>
+            </div>
+            <div class="preview-pane">
+                <h3>🔍 Hasilnya</h3>
+                <iframe id="preview" class="preview-frame" srcdoc="<html><head><style>body{font-family:sans-serif; padding:1rem;}</style></head><body><h1>Halo, ini heading 1</h1><p>Ini paragraf pertama dalam sejarah.</p><a href='#'>Tautan</a></body></html>"></iframe>
+            </div>
+        </div>
+        <button class="run-button" id="runBtn">▶ Jalankan Kode</button>
+        <p style="color:#aaa; margin-top:1rem;">💡 Coba tulis tag-tag jadul seperti &lt;font&gt; atau &lt;center&gt; dan lihat hasilnya (meskipun sekarang sudah tidak direkomendasikan).</p>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <p>⚡ 2026 University Code · Halaman "Sejarah HTML"</p>
+    </footer>
+</div>
+
+<script>
+    const runBtn = document.getElementById('runBtn');
+    const htmlCode = document.getElementById('htmlCode');
+    const preview = document.getElementById('preview');
+
+    function updatePreview() {
+        const code = htmlCode.value;
+        const srcdoc = `
+            <html>
+                <head><style>body { font-family: sans-serif; padding: 1rem; background: #f5f5f5; color: #111; }</style></head>
+                <body>${code}</body>
+            </html>
+        `;
+        preview.srcdoc = srcdoc;
+    }
+
+    runBtn.addEventListener('click', updatePreview);
+    // Set contoh awal sesuai sejarah
+    htmlCode.value = '<h1>Selamat datang di HTML</h1>\n<p>HTML pertama kali diciptakan oleh Tim Berners-Lee pada 1991.</p>\n<font color="red">Tag &lt;font&gt; dulu sering dipakai.</font>';
+    updatePreview();
+</script>
+</body>
+</html>
